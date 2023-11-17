@@ -1,4 +1,6 @@
-package codingdojo;
+package codingdojo.printers;
+
+import codingdojo.entities.Customer;
 
 public class CustomerPrinter {
 
@@ -8,7 +10,7 @@ public class CustomerPrinter {
         sb.append("\n" + indent + "    externalId='" + customer.getExternalId() + '\'');
         sb.append("\n" + indent + "    masterExternalId='" + customer.getMasterExternalId() + '\'');
         sb.append("\n" + indent + "    companyNumber='" + customer.getCompanyNumber() + '\'' );
-        sb.append("\n" + indent + "    internalId='" + customer.getInternalId() + '\'' );
+        sb.append("\n" + indent + "    internalId='" + customer.getId() + '\'' );
         sb.append("\n" + indent + "    name='" + customer.getName() + '\'' );
         sb.append("\n" + indent + "    customerType=" + customer.getCustomerType() );
         sb.append("\n" + indent + "    preferredStore='" + customer.getPreferredStore() + '\'');

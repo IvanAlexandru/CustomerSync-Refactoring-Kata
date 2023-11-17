@@ -1,11 +1,17 @@
-package codingdojo;
+package codingdojo.dao;
+
+import codingdojo.dao.CustomerDao;
+import codingdojo.entities.Customer;
+import codingdojo.entities.ShoppingList;
+import codingdojo.printers.CustomerPrinter;
+import codingdojo.printers.ShoppingListPrinter;
 
 import java.util.*;
 
 /**
  * Fake implementation of data layer that stores data in-memory
  */
-public class FakeDatabase implements CustomerDataLayer {
+public class FakeDatabase implements CustomerDao {
 
     private final HashMap<String, Customer> customersByExternalId = new HashMap<String, Customer>();
     private final HashMap<String, Customer> customersByMasterExternalId = new HashMap<String, Customer>();
@@ -29,22 +35,17 @@ public class FakeDatabase implements CustomerDataLayer {
     }
 
     @Override
-    public Customer updateCustomerRecord(Customer customer) {
+    public Customer updateCustomer(Customer customer) {
         this.addCustomer(customer);
         return customer;
     }
 
     @Override
-    public Customer createCustomerRecord(Customer customer) {
+    public Customer createCustomer(Customer customer) {
         String internalId = "fake internalId";
-        customer.setInternalId(internalId);
+        customer.setId(internalId);
         addCustomer(customer);
         return customer;
-    }
-
-    @Override
-    public void updateShoppingList(ShoppingList consumerShoppingList) {
-        shoppingLists.add(consumerShoppingList);
     }
 
     @Override
@@ -67,7 +68,7 @@ public class FakeDatabase implements CustomerDataLayer {
         allCustomers.addAll(customersByMasterExternalId.values());
         allCustomers.addAll(customersByCompanyNumber.values());
         ArrayList<Customer> sortedList = new ArrayList<Customer>(allCustomers);
-        sortedList.sort((o1, o2) -> Comparator.comparing(Customer::getInternalId)
+        sortedList.sort((o1, o2) -> Comparator.comparing(Customer::getId)
                 .thenComparing(Customer::getName)
                 .compare(o1, o2));
         return sortedList;
