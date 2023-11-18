@@ -2,6 +2,8 @@ package codingdojo.dao;
 
 import codingdojo.entities.Customer;
 
+import java.util.List;
+
 /**
  * Customer data access object
  */
@@ -12,14 +14,21 @@ public interface CustomerDao {
      * @param customer - customer entity to update
      * @return
      */
-    Customer updateCustomer(Customer customer);
+    Customer update(Customer customer);
+
+    /**
+     * Updates a list if customer entities
+     * @param customers - customer entities to update
+     * @return
+     */
+    List<Customer> updateAll(List<Customer> customers);
 
     /**
      * Creates customer entity
      * @param customer - customer entity to create
      * @return
      */
-    Customer createCustomer(Customer customer);
+    Customer create(Customer customer);
 
     /**
      * Find customer entity by externalId field

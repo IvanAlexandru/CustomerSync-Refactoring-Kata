@@ -127,18 +127,9 @@ public class CustomerService {
     private void updateDuplicates(CustomerDto customerDto, CustomerMatch customerMatch) {
         logger.info("Update customer duplicates...");
         if (customerMatch.hasDuplicates()) {
-            customerMatch.getDuplicates().forEach(duplicate -> updateDuplicate(customerDto, duplicate));
+            customerMatch.getDuplicates().forEach(duplicate -> duplicate.setName(customerDto.getName()));
         }
-    }
-
-    /**
-     * Update customer duplicate
-     * @param customerDto - customerDto from which to update duplicate
-     * @param duplicate - customer duplicate
-     */
-    private void updateDuplicate(CustomerDto customerDto, Customer duplicate) {
-        duplicate.setName(customerDto.getName());
-        customerDao.updateCustomer(duplicate);
+        customerDao.updateAll(customerMatch.getDuplicates());
     }
 
     /**
@@ -149,11 +140,11 @@ public class CustomerService {
     private boolean createOrUpdateCustomer(Customer customer, Boolean created) {
         if (customer.getId() == null) {
             logger.info("Create customer entity in db...");
-            customerDao.createCustomer(customer);
+            customerDao.create(customer);
             created = true;
         } else {
             logger.info("Update customer entity in db...");
-            customerDao.updateCustomer(customer);
+            customerDao.update(customer);
         }
         return created;
     }

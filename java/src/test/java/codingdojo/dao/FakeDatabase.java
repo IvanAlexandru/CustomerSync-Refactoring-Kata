@@ -35,13 +35,21 @@ public class FakeDatabase implements CustomerDao {
     }
 
     @Override
-    public Customer updateCustomer(Customer customer) {
+    public Customer update(Customer customer) {
         this.addCustomer(customer);
         return customer;
     }
 
     @Override
-    public Customer createCustomer(Customer customer) {
+    public List<Customer> updateAll(List<Customer> customers) {
+        for(Customer customer : customers) {
+            this.addCustomer(customer);
+        }
+        return customers;
+    }
+
+    @Override
+    public Customer create(Customer customer) {
         String internalId = "fake internalId";
         customer.setId(internalId);
         addCustomer(customer);
